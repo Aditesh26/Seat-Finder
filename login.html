@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Library Manager</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #1a1a2e; color: #fff; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .login-container { background: rgba(255,255,255,0.05); border-radius: 20px; padding: 40px; border: 1px solid rgba(255,255,255,0.1); width: 100%; max-width: 450px; }
+        .login-header { text-align: center; margin-bottom: 30px; }
+        .login-title { font-size: 2rem; font-weight: 700; color: #7dd3fc; margin-bottom: 10px; }
+        .login-subtitle { color: #b0b0b0; font-size: 1rem; }
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; margin-bottom: 8px; color: #fff; font-weight: 500; }
+        .form-input { width: 100%; padding: 12px 15px; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; background: rgba(255,255,255,0.1); color: #fff; font-size: 1rem; }
+        .form-input:focus { outline: none; border-color: #7dd3fc; }
+        .form-input::placeholder { color: #b0b0b0; }
+        .submit-btn { width: 100%; padding: 12px; background: #7dd3fc; border: none; border-radius: 10px; color: #1a1a2e; font-size: 1rem; font-weight: 600; cursor: pointer; margin-bottom: 20px; }
+        .back-link { text-align: center; margin-top: 20px; }
+        .back-link a { color: #fff; text-decoration: none; font-weight: 500; }
+        .back-link a:hover { color: #7dd3fc; }
+        .error-message { background: rgba(125,211,252,0.2); border: 1px solid rgba(125,211,252,0.5); border-radius: 10px; padding: 12px; margin-bottom: 20px; color: #7dd3fc; text-align: center; }
+        .input-icon { position: relative; }
+        .input-icon i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #b0b0b0; }
+        .input-icon .form-input { padding-left: 45px; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1 class="login-title"><i class="fas fa-user-circle"></i> Login</h1>
+            <p class="login-subtitle">Welcome to Library Manager</p>
+        </div>
+
+        {% if error %}<div class="error-message"><i class="fas fa-exclamation-triangle"></i> {{ error }}</div>{% endif %}
+
+        <form method="post" action="{{ url_for('login') }}">
+            <div class="form-group">
+                <label for="reg_no" class="form-label">Registration Number</label>
+                <div class="input-icon"><i class="fas fa-id-card"></i><input type="text" id="reg_no" name="reg_no" class="form-input" placeholder="Enter your registration number" required></div>
+            </div>
+            <div class="form-group">
+                <label for="name" class="form-label">Full Name (for new users)</label>
+                <div class="input-icon"><i class="fas fa-user"></i><input type="text" id="name" name="name" class="form-input" placeholder="Enter your full name (optional for existing users)"></div>
+            </div>
+            <button type="submit" class="submit-btn"><i class="fas fa-sign-in-alt"></i> Login</button>
+        </form>
+
+        <div class="back-link"><a href="{{ url_for('home') }}"><i class="fas fa-arrow-left"></i> Back to Home</a></div>
+    </div>
+</body>
+</html>

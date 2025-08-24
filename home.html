@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Manager</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #1a1a2e; color: #fff; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .header { background: rgba(0,0,0,0.3); padding: 20px 0; position: fixed; top: 0; width: 100%; z-index: 1000; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 2rem; font-weight: bold; color: #7dd3fc; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: #fff; text-decoration: none; font-weight: 500; }
+        .nav-links a:hover { color: #7dd3fc; }
+        .main-content { margin-top: 120px; text-align: center; padding: 60px 0; }
+        .hero-title { font-size: 4rem; font-weight: 700; margin-bottom: 20px; color: #7dd3fc; }
+        .hero-subtitle { font-size: 1.5rem; color: #b0b0b0; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .buttons-section { display: flex; justify-content: center; gap: 40px; margin-top: 60px; }
+        .action-button { background: #7dd3fc; border: none; padding: 20px 40px; border-radius: 15px; color: #1a1a2e; font-size: 1.2rem; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 15px; }
+        .features-section { margin-top: 100px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; padding: 60px 0; }
+        .feature-card { background: rgba(255,255,255,0.05); border-radius: 20px; padding: 40px 30px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        .feature-icon { font-size: 3rem; margin-bottom: 20px; color: #7dd3fc; }
+        .feature-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 15px; color: #fff; }
+        .feature-description { color: #b0b0b0; line-height: 1.6; }
+        .footer { background: rgba(0,0,0,0.5); padding: 40px 0; margin-top: 80px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); }
+        .footer-content { color: #b0b0b0; }
+        @media (max-width: 768px) { .hero-title { font-size: 2.5rem; } .hero-subtitle { font-size: 1.2rem; } .buttons-section { flex-direction: column; align-items: center; } .action-button { width: 100%; max-width: 300px; } .nav-links { display: none; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo"><i class="fas fa-book-open"></i> Library Manager</div>
+                <nav class="nav-links">
+                    <a href="{{ url_for('home') }}">Home</a>
+                    <a href="{{ url_for('about') }}">About</a>
+                    {% if user_info %}<span style="color: #7dd3fc; font-weight: 600;">Welcome, {{ user_info.name }}!</span><a href="{{ url_for('logout') }}">Logout</a>{% else %}<a href="{{ url_for('login') }}">Login</a>{% endif %}
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="hero-section">
+                <h1 class="hero-title">Welcome to Library Manager</h1>
+                <p class="hero-subtitle">Efficiently manage your library resources and track seat availability across multiple floors with our comprehensive management platform.</p>
+                <div class="buttons-section">
+                    <a href="{{ url_for('seats_page') }}" class="action-button"><i class="fas fa-chair"></i>View Seat Matrix</a>
+                </div>
+            </section>
+
+            <section class="features-section">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-users"></i></div>
+                    <h3 class="feature-title">Multi-Floor Seat Management</h3>
+                    <p class="feature-description">Real-time tracking of seat availability across all floors. Monitor which seats are occupied and manage reservations efficiently.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-plug"></i></div>
+                    <h3 class="feature-title">Charging Stations</h3>
+                    <p class="feature-description">Easily identify seats with charging sockets. Each floor has designated seats with power outlets for your convenience.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-clock"></i></div>
+                    <h3 class="feature-title">Smart Reservations</h3>
+                    <p class="feature-description">Reserve seats for 10 minutes with automatic expiry. One reservation per user ensures fair access for everyone.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>Designed by Aditesh, Sai, Abhinav and Varnika <i style="color: #ff6b6b;"></i> for efficient library use.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
