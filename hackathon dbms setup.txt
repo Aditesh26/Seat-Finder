@@ -1,0 +1,63 @@
+USE hackathon;
+
+CREATE TABLE customers (
+    reg_no VARCHAR(20) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE seats (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    floor INT NOT NULL,
+    seat_no INT NOT NULL,
+    socket TINYINT(1) NOT NULL DEFAULT 0,    -- 0=free, 1=in use
+    occupied TINYINT(1) NOT NULL DEFAULT 0,  -- 0=empty, 1=occupied
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uniq_floor_seat (floor, seat_no)
+);
+
+DELIMITER //
+
+CREATE PROCEDURE fill_seats()
+BEGIN
+    DECLARE i INT;
+
+    -- Floor 0 → 50 seats
+    SET i = 1;
+    WHILE i <= 50 DO
+        INSERT INTO seats (floor, seat_no, socket, occupied, updated_at)
+        VALUES (0, i, 0, 0, NOW());
+        SET i = i + 1;
+    END WHILE;
+
+    -- Floor 1 → 80 seats
+    SET i = 1;
+    WHILE i <= 80 DO
+        INSERT INTO seats (floor, seat_no, socket, occupied, updated_at)
+        VALUES (1, i, 0, 0, NOW());
+        SET i = i + 1;
+    END WHILE;
+
+    -- Floor 2 → 80 seats
+    SET i = 1;
+    WHILE i <= 80 DO
+        INSERT INTO seats (floor, seat_no, socket, occupied, updated_at)
+        VALUES (2, i, 0, 0, NOW());
+        SET i = i + 1;
+    END WHILE;
+
+    -- Floor 3 → 80 seats
+    SET i = 1;
+    WHILE i <= 80 DO
+        INSERT INTO seats (floor, seat_no, socket, occupied, updated_at)
+        VALUES (3, i, 0, 0, NOW());
+        SET i = i + 1;
+    END WHILE;
+END //
+
+DELIMITER ;
+
+-- Run the procedure once
+CALL fill_seats();
+
+DROP PROCEDURE fill_seats;
