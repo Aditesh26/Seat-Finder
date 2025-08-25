@@ -2,9 +2,15 @@ from flask import Flask, render_template, request, redirect, url_for, session, j
 from functools import wraps
 import mysql.connector
 import os
+import secrets
 
 app = Flask(__name__, template_folder="templates")
-app.secret_key = os.getenv("FLASK_SECRET", "change-this")
+
+# Generate a new secret key each run → old cookies invalid
+app.secret_key = secrets.token_hex(16)
+
+# Expire session when browser is closed
+app.config["SESSION_PERMANENT"] = False
 
 def get_conn():
     return mysql.connector.connect(
